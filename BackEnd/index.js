@@ -16,6 +16,7 @@ app.use(cors(corsOptions));
 const port = 3002;
 app.use(express.json())///////////if we want to use for req.body then we have to use this middleware
 app.use("/", require("./routes/member"));
+app.use("/team", require("./routes/teams"));
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

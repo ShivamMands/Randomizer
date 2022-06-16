@@ -47,7 +47,8 @@ function TotalList() {
     setTeamB(arr2)
     setScrumMaster(pick)
   }
-
+  //  console.log('Team A:',teamA)
+  //   console.log('Team B:',teamB)
   const pickScrumMaster = () => {
     let master = ''
     if (presenting) {
@@ -58,7 +59,7 @@ function TotalList() {
     setScrumMaster(master)
   }
 
-  console.log('TEAM A: ', teamA)
+  // console.log('TEAM A: ', teamA)
 
   const switchPresentingTeam = () => {
     setPresenting(!presenting)
