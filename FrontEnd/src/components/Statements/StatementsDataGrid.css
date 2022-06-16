@@ -1,0 +1,8 @@
+.statements-header {
+    font-size: 18px;
+}
+
+.MuiDataGrid-footerContainer {
+    display: block !important;
+    background-color: blue !important;
+}
