@@ -3,8 +3,9 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 // import members from './members'
 import store from '../../redux/store/store'
-import { getMembers } from '../../redux'
+import { getMembers, addMember, updateMember, deleteMember } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
+import AddModal from '../../shared/addModal/AddModal'
 import './TotalList.css'
 
 function TotalList() {
@@ -59,10 +60,6 @@ function TotalList() {
 
   console.log('TEAM A: ', teamA)
 
-  // if (scrumMaster.id === 4) {
-  //   pickScrumMaster()
-  // }
-
   const switchPresentingTeam = () => {
     setPresenting(!presenting)
   }
@@ -115,6 +112,7 @@ function TotalList() {
       <div style={membersDiv} className="members">
         <h2>All Members</h2>
         <h3>Total Members: {totalMembers}</h3>
+        <AddModal />
         {members &&
           members.map((member) => <p key={member.id}>{member.name}</p>)}
       </div>
