@@ -9,7 +9,7 @@ const MemberSchema = new Schema({
     type: String,
     required: true,
   },
-   technology: {
+   favouriteTech: {
     type: String,
     required: true,
   },
