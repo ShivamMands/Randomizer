@@ -24,7 +24,7 @@ function TotalList() {
   }, [members])
 
   const shuffleTeams = () => {
-    const arr = list
+    const arr = members
     console.log('list: ', list)
     for (var i = arr.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1))
