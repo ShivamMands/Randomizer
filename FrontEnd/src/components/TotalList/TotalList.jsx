@@ -118,19 +118,41 @@ function TotalList() {
       </div>
       <div style={{ display: 'flex' }} className="teams">
         <div style={inlineBlock} className="teamA">
-          {presenting ? <h2>Presenting</h2> : <h2>Questioner</h2>}
-          <h3>Team A</h3>
-          {teamA.map((member) => (
-            <p key={member.id}>{member.name}</p>
-          ))}
+          <h2>Presenting</h2>
+          {presenting ? (
+            <>
+              <h3>Team A</h3>
+              {teamA.map((member) => (
+                <p key={member.id}>{member.name}</p>
+              ))}
+            </>
+          ) : (
+            <>
+              <h3>Team B</h3>
+              {teamB.map((member) => (
+                <p key={member.id}>{member.name}</p>
+              ))}
+            </>
+          )}
         </div>
 
         <div style={inlineBlock} className="teamB">
-          {!presenting ? <h2>Presenting</h2> : <h2>Questioner</h2>}
-          <h3>Team B</h3>
-          {teamB.map((member) => (
-            <p key={member.id}>{member.name}</p>
-          ))}
+          <h2>Questioner</h2>
+          {presenting ? (
+            <>
+              <h3>Team B</h3>
+              {teamB.map((member) => (
+                <p key={member.id}>{member.name}</p>
+              ))}
+            </>
+          ) : (
+            <>
+              <h3>Team A</h3>
+              {teamA.map((member) => (
+                <p key={member.id}>{member.name}</p>
+              ))}
+            </>
+          )}
         </div>
 
         <div style={inlineBlock} className="scrumMaster">
