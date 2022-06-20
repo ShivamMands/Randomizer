@@ -9,6 +9,45 @@
   overflow: hidden;
 }
 
+text-zone {
+  background: white;
+  position: inherit;
+  left: 15% !important;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 73% !important;
+  vertical-align: middle;
+  display: table-cell;
+  max-height: 92%;
+  background: #022c43 !important;
+
+
+
+}
+
+.heading-zone {
+  margin-bottom: 12px;
+
+}
+
+.css-rtrcn9-MuiTablePagination-root {
+  /* overflow: auto; */
+  margin-right: 5em;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+}
+
+.css-1r5v9hu-MuiDataGrid-root {
+  color: white !important;
+}
+
+.css-r11z79-MuiDataGrid-root {
+  height: 376px !important;
+  font-size: 1.2rem !important;
+  color: white !important;
+  width: 143ch !important;
+}
+
 .cubespinner {
   animation-name: spincube;
   animation-timing-function: ease-in-out;
@@ -78,4 +117,13 @@
   83% {
     transform: rotateX(90deg);
   }
+}
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+  min-height: 57px !important;
+  padding-right: 51px !important;
+  color: white !important;
+}
+
+.css-1e11en7-MuiButtonBase-root-MuiButton-root {
+  margin-bottom: 12px !important;
 }

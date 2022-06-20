@@ -1,0 +1,27 @@
+heading-zone {
+    margin-bottom: 24px;
+}
+
+.MuiTablePagination-root {
+    /* overflow: auto; */
+    margin-right: 5em;
+    color: white !important;
+    font-size: 0.875rem;
+    width: 20% !important;
+}
+
+.css-1r5v9hu-MuiDataGrid-root {
+    color: white !important;
+}
+
+.MuiTablePagination-actions button{
+    color: white !important;
+}
+
+.MuiTablePagination-actions{
+    color: white !important
+}
+
+.MuiDataGrid-columnHeadersInner{
+    color: white !important
+}

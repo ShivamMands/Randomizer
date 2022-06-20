@@ -4,6 +4,7 @@ import AnimatedLetters from '../AnimatedLetters'
 import './index.scss'
 import portfolioData from '../../data/portfolio.json'
 import TotalList from '../TotalList/TotalList'
+import WheelPicker from '../../shared/WheelPicker'
 
 const Portfolio = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
@@ -48,15 +49,9 @@ const Portfolio = () => {
     <>
       <div className="container portfolio-page">
         <TotalList />
-
-        {/* <h1 className="page-title">
-                    <AnimatedLetters
-                        letterClass={letterClass}
-                        strArray={"Portfolio".split("")}
-                        idx={15}
-                    />
-                </h1>
-                <div>{renderPortfolio(portfolioData.portfolio)}</div> */}
+        <div className="wheek-picker">
+          <WheelPicker />
+        </div>
       </div>
       <Loader type="pacman" />
     </>

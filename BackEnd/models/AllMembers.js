@@ -9,12 +9,13 @@ const MemberSchema = new Schema({
     type: String,
     required: true,
   },
-   favouriteTech: {
+  favouriteTech: {
     type: String,
     required: true,
   },
   date: {
     type: Date,
-    default: Date.now,  },
+    default: Date.now,
+  },
 });
 module.exports = mongoose.model("AllMember", MemberSchema);

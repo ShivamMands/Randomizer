@@ -115,12 +115,13 @@ export const getMembers = () => {
   }
 }
 
-export const addMember = () => {
+export const addMember = (member) => {
   return function (dispatch) {
     dispatch(addMemberRequest())
     axios({
-      method: 'get',
-      url: `http://localhost:3002/`,
+      method: 'post',
+      url: `http://localhost:3002/member/create`,
+      data: member,
     })
       .then((response) => {
         const MEMBERS = response.data
@@ -134,12 +135,13 @@ export const addMember = () => {
   }
 }
 
-export const updateMember = () => {
+export const updateMember = (member) => {
   return function (dispatch) {
     dispatch(updateMemberRequest())
     axios({
-      method: 'get',
-      url: `http://localhost:3002/`,
+      method: 'post',
+      url: `http://localhost:3002/member/update`,
+      data: member,
     })
       .then((response) => {
         const MEMBERS = response.data
@@ -153,12 +155,14 @@ export const updateMember = () => {
   }
 }
 
-export const deleteMember = () => {
+export const deleteMember = (id) => {
   return function (dispatch) {
     dispatch(deleteMemberRequest())
+    console.log('id: ', id)
     axios({
-      method: 'get',
-      url: `http://localhost:3002/`,
+      method: 'post',
+      url: `http://localhost:3002/member/delete`,
+      data: { id: id },
     })
       .then((response) => {
         const MEMBERS = response.data

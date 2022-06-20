@@ -11,31 +11,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import './App.scss'
 
 function App() {
-  const members = useSelector((store) => store.members.response)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getMembers())
-  }, [])
-
-  console.log('members: ', members)
-  // useEffect(() => {
-  //   showallMember()
-  // }, [])
-
-  // const showallMember = async () => {
-  //   const members = await fetch('http://localhost:3002/', {
-  //     method: 'GET',
-  //     credentials: 'include',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Access-Control-Allow-Credentials': true,
-  //     },
-  //   })
-  //   const allmembers = await members.json()
-  //   console.log('this is all data', allmembers)
-  // }
   return (
     <>
       <Routes>

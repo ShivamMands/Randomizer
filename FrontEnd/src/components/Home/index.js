@@ -1,15 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import LogoTitle from '../../assets/images/logo-s.png'
+// import Confettii from 'react-confetti'
+import Confettii from '../../shared/confetti'
 import Logo from './Logo'
 import './index.scss'
 
 const Home = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
+  // const [height, setHeight] = useState(null)
+  // const [width, setWidth] = useState(null)
+  // const confettiRef = useRef(null)
 
-  // const nameArray = ['h', 'i', 'v', 'a', 'm']
+  // useEffect(() => {
+  //   setHeight(confettiRef.current.clientWidth)
+  //   setWidth(confettiRef.current.clientWidth)
+  // }, [])
+
   const nameArray = [' ', 'R', 'a', 'n', 'd', 'o', 'm', 'i', 'z', 'e', 'r']
   const jobArray = ['L', 'e', 't', 's', ' ', 'B', 'e', 'g', 'i', 'n', '.']
 
@@ -22,6 +31,8 @@ const Home = () => {
   return (
     <>
       <div className="container home-page">
+        {/* <Confettii height={height} width={width} numberOfPieces={80} /> */}
+        <Confettii />
         <div className="text-zone">
           <h1>
             <span className={letterClass}>H</span>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-// import members from './members'
 import store from '../../redux/store/store'
-import { getMembers, addMember, updateMember, deleteMember } from '../../redux'
+import { getMembers, confetti } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
-import AddModal from '../../shared/addModal/AddModal'
+import Confettii from '../../shared/confetti'
 import './TotalList.css'
 
 function TotalList() {
@@ -18,7 +17,15 @@ function TotalList() {
   const [scrumMaster, setScrumMaster] = useState({
     name: '',
   })
+  // const [showConfetti, setShowConfetti] = useState(false)
 
+  const showConfetti = useSelector((state) => state.confetti.show)
+
+  useEffect(() => {
+    dispatch(getMembers())
+  }, [])
+
+  const dispatch = useDispatch()
   useEffect(() => {
     setTotalMembers(members.length)
   }, [members])
@@ -35,7 +42,6 @@ function TotalList() {
     console.log('list: ', list)
     const arr1 = []
     const arr2 = []
-    let pick = ''
     for (let i = 0; i < arr.length; i++) {
       if (i % 2 === 0) {
         arr1.push(arr[i])
@@ -45,10 +51,11 @@ function TotalList() {
     }
     setTeamA(arr1)
     setTeamB(arr2)
-    setScrumMaster(pick)
+    dispatch(confetti(true))
+    setTimeout(() => {
+      dispatch(confetti(false))
+    }, 5000)
   }
-  //  console.log('Team A:',teamA)
-  //   console.log('Team B:',teamB)
   const pickScrumMaster = () => {
     let master = ''
     if (presenting) {
@@ -59,7 +66,8 @@ function TotalList() {
     setScrumMaster(master)
   }
 
-  // console.log('TEAM A: ', teamA)
+  console.log('TEAM A: ', teamA)
+  console.log('TEAM A: ', teamB)
 
   const switchPresentingTeam = () => {
     setPresenting(!presenting)
@@ -74,7 +82,7 @@ function TotalList() {
     padding: '1em',
     float: 'left',
   }
-
+  const id = '62ac371b61b31bc71a1cc41b'
   const btnStyle = {
     fontWeight: 400,
     fontSize: '15px',
@@ -84,6 +92,7 @@ function TotalList() {
   console.log('totalMembers: ', totalMembers)
   return (
     <div className="team-divider">
+      {showConfetti ? <Confettii /> : ''}
       <Stack spacing={8} direction="row">
         <Button variant="contained" size="large" onClick={() => shuffleTeams()}>
           <span style={btnStyle}> Create Teams</span>
@@ -113,7 +122,6 @@ function TotalList() {
       <div style={membersDiv} className="members">
         <h2>All Members</h2>
         <h3>Total Members: {totalMembers}</h3>
-        <AddModal />
         {members &&
           members.map((member) => <p key={member.id}>{member.name}</p>)}
       </div>
