@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import store from '../../redux/store/store'
-import { getMembers, confetti } from '../../redux'
+import {
+  getMembers,
+  confetti,
+  createTeams,
+  getTeams,
+  getPreviousTeams,
+  wheelPicker,
+  getScrumMaster,
+} from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import Confettii from '../../shared/confetti'
 import './TotalList.css'
@@ -11,18 +19,21 @@ function TotalList() {
   const members = useSelector((store) => store.members.response)
   const [list, setList] = useState(members)
   const [totalMembers, setTotalMembers] = useState(members.length)
-  const [teamA, setTeamA] = useState([])
-  const [teamB, setTeamB] = useState([])
   const [presenting, setPresenting] = useState(true)
-  const [scrumMaster, setScrumMaster] = useState({
-    name: '',
-  })
-  // const [showConfetti, setShowConfetti] = useState(false)
+  // const [scrumMaster, setScrumMaster] = useState({
+  //   name: '',
+  // })
 
   const showConfetti = useSelector((state) => state.confetti.show)
+  const teamA = useSelector((store) => store.teams.teamA)
+  const teamB = useSelector((store) => store.teams.teamB)
+  const scrumMaster = useSelector((store) => store.teams.scrumMaster)
 
   useEffect(() => {
     dispatch(getMembers())
+    dispatch(getTeams())
+    dispatch(getPreviousTeams())
+    dispatch(getScrumMaster())
   }, [])
 
   const dispatch = useDispatch()
@@ -31,43 +42,23 @@ function TotalList() {
   }, [members])
 
   const shuffleTeams = () => {
-    const arr = members
-    console.log('list: ', list)
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1))
-      var temp = arr[i]
-      arr[i] = arr[j]
-      arr[j] = temp
-    }
-    console.log('list: ', list)
-    const arr1 = []
-    const arr2 = []
-    for (let i = 0; i < arr.length; i++) {
-      if (i % 2 === 0) {
-        arr1.push(arr[i])
-      } else {
-        arr2.push(arr[i])
-      }
-    }
-    setTeamA(arr1)
-    setTeamB(arr2)
+    dispatch(createTeams())
     dispatch(confetti(true))
     setTimeout(() => {
       dispatch(confetti(false))
-    }, 5000)
+    }, 8000)
   }
+
   const pickScrumMaster = () => {
+    dispatch(wheelPicker(true))
     let master = ''
     if (presenting) {
       master = teamB[Math.floor(Math.random() * teamB.length)]
     } else {
       master = teamA[Math.floor(Math.random() * teamA.length)]
     }
-    setScrumMaster(master)
+    // setScrumMaster(master)
   }
-
-  console.log('TEAM A: ', teamA)
-  console.log('TEAM A: ', teamB)
 
   const switchPresentingTeam = () => {
     setPresenting(!presenting)
@@ -166,11 +157,7 @@ function TotalList() {
 
         <div style={inlineBlock} className="scrumMaster">
           <h2>Scrum Master</h2>
-          {scrumMaster && scrumMaster.name.length > 1 ? (
-            <h3>{scrumMaster.name}</h3>
-          ) : (
-            ''
-          )}
+          {scrumMaster ? <h3>{scrumMaster.name}</h3> : ''}
         </div>
       </div>
     </div>

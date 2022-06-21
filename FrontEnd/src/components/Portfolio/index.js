@@ -5,6 +5,7 @@ import './index.scss'
 import portfolioData from '../../data/portfolio.json'
 import TotalList from '../TotalList/TotalList'
 import WheelPicker from '../../shared/WheelPicker'
+import { useSelector } from 'react-redux'
 
 const Portfolio = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
@@ -19,6 +20,8 @@ const Portfolio = () => {
       clearTimeout(timer)
     }
   })
+
+  const showWheel = useSelector((store) => store.wheelPicker.show)
 
   const renderPortfolio = (portfolio) => {
     return (
@@ -47,12 +50,16 @@ const Portfolio = () => {
 
   return (
     <>
-      <div className="container portfolio-page">
-        <TotalList />
+      {showWheel ? (
         <div className="wheek-picker">
           <WheelPicker />
         </div>
-      </div>
+      ) : (
+        <div className="container portfolio-page">
+          <TotalList />
+        </div>
+      )}
+
       <Loader type="pacman" />
     </>
   )

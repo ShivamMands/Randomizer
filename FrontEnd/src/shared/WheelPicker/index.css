@@ -69,13 +69,7 @@ body {
     bottom: 0;
 }
 
-.container {
-    color: #333;
-    margin: 0 auto;
-    padding: 0.5rem;
-    text-align: center;
-    right: 0;
-}
+
 
 #spin {
     text-align: end !important;

@@ -9,16 +9,25 @@ const ActiveTeamSchema = new Schema({
     type: String,
     required: true,
   },
-   favouriteTech: {
+  favouriteTech: {
     type: String,
     required: true,
   },
-  team:{
-     type: String,
+  team: {
+    type: String,
+    required: true,
+  },
+  ScrumMaster: {
+    type: Boolean,
+    required: true,
+  },
+  teamroles: {
+    type: String,
     required: true,
   },
   date: {
     type: Date,
-    default: Date.now,  },
+    default: Date.now,
+  },
 });
 module.exports = mongoose.model("ActiveTeam", ActiveTeamSchema);
