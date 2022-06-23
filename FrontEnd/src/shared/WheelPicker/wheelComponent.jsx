@@ -20,14 +20,14 @@ export const WheelComponent = ({
   let isStarted = false
   const [isFinished, setFinished] = useState(false)
   let timerHandle = 0
-  let timerDelay = 15
+  let timerDelay = segments.length
   let angleCurrent = 0
   let angleDelta = 0
   let size = 280
   let canvasContext = null
-  let maxSpeed = Math.PI / 15
-  let upTime = 15 * 100
-  let downTime = 15 * 600
+  let maxSpeed = Math.PI / segments.length
+  let upTime = segments.length * 100
+  let downTime = segments.length * 600
   let spinStart = 0
   let frames = 0
   let centerX = 300
@@ -50,6 +50,8 @@ export const WheelComponent = ({
     wheelDraw()
   }
 
+  console.log('segments: ', segments)
+
   const initCanvas = () => {
     let canvas = document.getElementById('canvas')
     if (navigator.appVersion.indexOf('MSIE') !== -1) {
@@ -66,8 +68,8 @@ export const WheelComponent = ({
     isStarted = true
     if (timerHandle === 0) {
       spinStart = new Date().getTime()
-      // maxSpeed = Math.PI / ((15*2) + Math.random())
-      maxSpeed = Math.PI / 15
+      // maxSpeed = Math.PI / ((segments.length*2) + Math.random())
+      maxSpeed = Math.PI / segments.length
       frames = 0
       timerHandle = setInterval(onTimerTick, timerDelay)
     }
@@ -83,7 +85,10 @@ export const WheelComponent = ({
       angleDelta = maxSpeed * Math.sin((progress * Math.PI) / 2)
     } else {
       if (winning_segment) {
-        if (current_segment === winning_segment && frames > 15 * 20) {
+        if (
+          current_segment === winning_segment &&
+          frames > segments.length * 20
+        ) {
           angleDelta =
             maxSpeed * Math.sin((progress * Math.PI) / 2 + Math.PI / 2)
           progress = 1
@@ -126,7 +131,10 @@ export const WheelComponent = ({
 
   const drawSegment = (key, lastAngle, angle) => {
     let ctx = canvasContext
-    let value = segments[key].name
+    let value = ''
+    if (segments && segments.length > 1) {
+      value = segments[key].name
+    }
     ctx.save()
     ctx.beginPath()
     ctx.moveTo(centerX, centerY)
@@ -148,7 +156,7 @@ export const WheelComponent = ({
   const drawWheel = () => {
     let ctx = canvasContext
     let lastAngle = angleCurrent
-    let len = 15
+    let len = segments.length
     let PI2 = Math.PI * 2
     ctx.lineWidth = 1
     ctx.strokeStyle = primaryColor || 'black'
@@ -197,8 +205,11 @@ export const WheelComponent = ({
     ctx.closePath()
     ctx.fill()
     let change = angleCurrent + Math.PI / 2
-    let i = 15 - Math.floor((change / (Math.PI * 2)) * 15) - 1
-    if (i < 0) i = i + 15
+    let i =
+      segments.length -
+      Math.floor((change / (Math.PI * 2)) * segments.length) -
+      1
+    if (i < 0) i = i + segments.length
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.fillStyle = primaryColor || 'black'

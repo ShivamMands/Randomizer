@@ -111,7 +111,6 @@ function getDifference(array1, array2) {
     });
   });
 }
-
 router.get("/prev", async (req, res) => {
   const prevteam = await PrevTeam.find();
   res.json(prevteam);
@@ -120,6 +119,13 @@ router.post("/scrum", async (req, res) => {
   const { _id, name, email, favouriteTech } = req.body;
   try {
     let check = await ActiveTeam.find();
+    check.map(async (item) => {
+      const updatedata = await ActiveTeam.findByIdAndUpdate(
+        item._id,
+        { $set: { ScrumMaster: false } },
+        { new: true }
+      );
+    });
     check.map((valu) => {
       if (valu.name === name && valu.ScrumMaster === true) {
         res.status(500).send("Scrum Master Alredy exist");
@@ -165,7 +171,6 @@ router.get("/toggleTeam", async (req, res) => {
 });
 
 router.get("/getScrumMaster", async (req, res) => {
-  console.log("kasnlkjsnadf");
   const currentScrum = await ActiveTeam.find();
   let i = 0;
   let currentScrumMaster = {};
@@ -178,6 +183,7 @@ router.get("/getScrumMaster", async (req, res) => {
       }
     });
   }
+  // res.json(currentScrumMaster)
   const prevScrum = await PrevTeam.find();
   let j = 0;
   if (prevScrum.length > 0) {
@@ -185,14 +191,34 @@ router.get("/getScrumMaster", async (req, res) => {
       if (item.ScrumMaster === true) {
         j = j + 1;
         previousScrumMaster = item;
+        // res.json(item)
       }
     });
   }
-  console.log("cM: ", currentScrumMaster);
-  console.log("pM: ", previousScrumMaster);
-  res.json([currentScrumMaster, previousScrumMaster]);
-  if (i === 0) {
-    res.status(500).send("scrumMaster does not exist in db");
+  if (i === 0 && j === 0) {
+    res.status(500).send({
+      currentScrumMaster:
+        "Current scrumMaster does not exist in prevTeam table",
+      previousScrumMaster: "Previous scrumMaster does not exist in db",
+    });
+  } else {
+    if (i === 0) {
+      res.status(500).send({
+        currentScrumMaster: "Current scrumMaster does not exist in db",
+      });
+    } else {
+      if (j === 0) {
+        res.status(200).send({
+          currentScrumMaster: currentScrumMaster,
+          previousScrumMaster: "Previous scrumMaster does not exist in db",
+        });
+      } else {
+        res.json({
+          currentScrumMaster: currentScrumMaster,
+          previousScrumMaster: previousScrumMaster,
+        });
+      }
+    }
   }
 });
 

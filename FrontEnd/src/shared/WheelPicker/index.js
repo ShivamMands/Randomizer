@@ -18,10 +18,13 @@ export default function WheelPicker() {
   const segments = presenting ? teamB : teamA
   const showWheel = useSelector((store) => store.wheelPicker.show)
 
-  // var half_length = Math.ceil(members.length)
-
-  // var segments = members.slice(0, half_length)
-  // var segments = members.slice(0, half_length)
+  useEffect(() => {
+    if (teamA[0].teamroles === 'Presenting') {
+      setPresenting(true)
+    } else {
+      setPresenting(false)
+    }
+  }, [])
 
   const colors = new ColorGenerator(segments.length)
 

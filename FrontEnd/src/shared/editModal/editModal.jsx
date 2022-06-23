@@ -3,11 +3,10 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { TextField } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateMember } from '../../redux/actions/members/membersActions'
-import { makeStyles } from '@material-ui/styles'
 import EditIcon from '@mui/icons-material/Edit'
+import CloseIcon from '@mui/icons-material/Close'
 
 export default function EditModal({ data }) {
   const [open, setOpen] = useState(false)
@@ -97,7 +96,10 @@ export default function EditModal({ data }) {
           >
             Update Member
           </Typography>
-          {/* <CloseIcon style={{ float: 'right', color: 'white' }} /> */}
+          <CloseIcon
+            onClick={handleClose}
+            style={{ float: 'right', color: 'white', cursor: 'pointer' }}
+          />
 
           <hr />
           <br />

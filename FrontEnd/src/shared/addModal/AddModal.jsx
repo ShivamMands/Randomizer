@@ -9,6 +9,7 @@ import './AddModal.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addMember } from '../../redux/actions/members/membersActions'
 import { makeStyles } from '@material-ui/styles'
+import CloseIcon from '@mui/icons-material/Close'
 
 export default function AddModal() {
   const [open, setOpen] = React.useState(false)
@@ -120,7 +121,10 @@ export default function AddModal() {
           >
             Add Member
           </Typography>
-          {/* <CloseIcon style={{ float: 'right', color: 'white' }} /> */}
+          <CloseIcon
+            onClick={handleClose}
+            style={{ float: 'right', color: 'white', cursor: 'pointer' }}
+          />
 
           <hr />
           <br />

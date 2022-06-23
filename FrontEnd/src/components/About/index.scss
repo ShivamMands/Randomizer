@@ -9,17 +9,18 @@
   overflow: hidden;
 }
 
-text-zone {
+.text-zone {
   background: white;
-  position: inherit;
-  left: 15% !important;
-  top: 50%;
+  position: absolute;
+  left: 10% !important;
+  top: 60% !important;
   transform: translateY(-50%);
-  width: 73% !important;
   vertical-align: middle;
   display: table-cell;
   max-height: 92%;
   background: #022c43 !important;
+  font-size: 1.5em;
+
 
 
 
@@ -75,22 +76,27 @@ text-zone {
     transform: translateZ(100px);
     color: #dd0031;
   }
+
   .face2 {
     transform: rotateY(90deg) translateZ(100px);
     color: #f06529;
   }
+
   .face3 {
     transform: rotateY(90deg) rotateX(90deg) translateZ(100px);
     color: #28a4d9;
   }
+
   .face4 {
     transform: rotateY(180deg) rotateZ(90deg) translateZ(100px);
     color: #5ed4f4;
   }
+
   .face5 {
     transform: rotateY(-90deg) rotateZ(90deg) translateZ(100px);
     color: #efd81d;
   }
+
   .face6 {
     transform: rotateX(-90deg) translateZ(100px);
     color: #ec4d28;
@@ -98,26 +104,33 @@ text-zone {
 }
 
 @keyframes spincube {
+
   from,
   to {
     transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
+
   16% {
     transform: rotateY(-90deg);
   }
+
   33% {
     transform: rotateY(-90deg) rotateZ(90deg);
   }
+
   50% {
     transform: rotateY(-180deg) rotateZ(90deg);
   }
+
   66% {
     transform: rotateY(-270deg) rotateX(90deg);
   }
+
   83% {
     transform: rotateX(90deg);
   }
 }
+
 .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
   min-height: 57px !important;
   padding-right: 51px !important;
@@ -126,4 +139,77 @@ text-zone {
 
 .css-1e11en7-MuiButtonBase-root-MuiButton-root {
   margin-bottom: 12px !important;
+}
+
+@media only screen and (min-width: 2000px) {
+  .text-zone {
+    width: 150vh;
+  }
+
+}
+
+// @media only screen and (max-width: 2000px){
+//   .text-zone{
+//     width: 71% !important;
+//   }
+
+// }
+
+
+.MuiDataGrid-root {
+  font-size: 1.5rem !important;
+}
+
+// .teammembers{
+//   text-align: center;
+// }
+// .h2{
+//   
+// }
+.members {
+  left: 25% !important;
+
+}
+
+// .MuiSvgIcon-root{
+//   color:yellow !important;}
+// .MuiDataGrid-iconButtonContainer{
+
+// }
+.MuiDataGrid-columnHeaders {
+  color: white !important;
+}
+
+// .css-f3jnds-MuiDataGrid-columnHeaders{
+//   color:white !important;
+
+// }
+// .MuiDataGrid-menuIcon{
+//   color:red !important;
+
+// }
+// .MuiButtonBase-root{
+
+//   color:red !important;
+
+// } 
+// .MuiIconButton-root{
+//   color:red !important;}
+.datatableButtons {
+  color: yellow !important;
+}
+
+.MuiSvgIcon-fontSizeSmall {
+  color: white !important;
+}
+
+// .MuiButtonBase-root{
+//   color: yellow;
+// }
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: yellow !important;
+}
+
+h2{
+  margin-bottom: 10px !important;
 }

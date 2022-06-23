@@ -69,9 +69,7 @@ export default function DeleteModal({ data }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>
-        <DeleteIcon />
-      </Button>
+      <DeleteIcon onClick={handleOpen} />
       <Modal
         sx={{ backgroud: '#0C0C0C' }}
         open={open}
@@ -88,7 +86,10 @@ export default function DeleteModal({ data }) {
           >
             Delete Member
           </Typography>
-          <CloseIcon style={{ float: 'right', color: 'white' }} />
+          <CloseIcon
+            onClick={handleClose}
+            style={{ float: 'right', color: 'white', cursor: 'pointer' }}
+          />
           <hr />
           <br />
           <h3>Are you sure you want to delete "{data.name}"</h3>

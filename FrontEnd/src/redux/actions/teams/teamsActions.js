@@ -14,6 +14,9 @@ import {
   CREATE_TEAMS_REQUEST,
   CREATE_TEAMS_SUCCESS,
   CREATE_TEAMS_FAILURE,
+  TOGGLE_TEAMS_REQUEST,
+  TOGGLE_TEAMS_SUCCESS,
+  TOGGLE_TEAMS_FAILURE,
 } from './teamsActionTypes'
 import store from '../../store/store'
 import axios from 'axios'
@@ -63,10 +66,9 @@ const fetchSetScrumMasterRequest = () => {
   }
 }
 
-const fetchSetScrumMasterSuccess = (TEAMS) => {
+const fetchSetScrumMasterSuccess = () => {
   return {
     type: FETCH_SET_SCRUM_MASTER_SUCCESS,
-    payload: TEAMS,
   }
 }
 
@@ -113,6 +115,25 @@ const createTeamsSuccess = (TEAMSS) => {
 const createTeamsFailure = (error) => {
   return {
     type: CREATE_TEAMS_FAILURE,
+    payload: error,
+  }
+}
+const toggleTeamsRequest = () => {
+  return {
+    type: TOGGLE_TEAMS_REQUEST,
+  }
+}
+
+const toggleTeamsSuccess = (TEAMSS) => {
+  return {
+    type: TOGGLE_TEAMS_SUCCESS,
+    payload: TEAMSS,
+  }
+}
+
+const toggleTeamsFailure = (error) => {
+  return {
+    type: TOGGLE_TEAMS_FAILURE,
     payload: error,
   }
 }
@@ -213,7 +234,15 @@ export const getScrumMaster = () => {
     })
       .then((response) => {
         const scrumMaster = response.data
-        console.log('sc data: ', scrumMaster)
+        // if (
+        //   scrumMaster.currentScrumMaster.id ===
+        //   scrumMaster.previousScrumMaster.id
+        // ) {
+        //   dispatch(getScrumMaster())
+        // } else {
+        //   dispatch(fetchGetScrumMasterSuccess(scrumMaster))
+        // }
+        console.log('sc data: ', scrumMaster.currentScrumMaster)
         // dispatch(alertAction('TEAMSS Sent ...', true, 'success'))
         dispatch(fetchGetScrumMasterSuccess(scrumMaster))
       })
@@ -237,13 +266,32 @@ export const setScrumMaster = (data) => {
         const scrumMaster = response.data
         console.log('response of scrumMaster: ', scrumMaster.data)
         // dispatch(alertAction('TEAMSS Sent ...', true, 'success'))
-        dispatch(fetchSetScrumMasterSuccess(data))
+        dispatch(fetchSetScrumMasterSuccess())
         dispatch(getScrumMaster())
         // dispatch(getScrumMaster)
       })
       .catch((error) => {
         // dispatch(alertAction(`${error.message}`, true, 'error'))
         dispatch(fetchSetScrumMasterFailure(error.message))
+      })
+  }
+}
+
+export const toggleTeams = (member) => {
+  return function (dispatch) {
+    dispatch(toggleTeamsRequest())
+    axios({
+      method: 'get',
+      url: `http://localhost:3002/team/toggleTeam`,
+    })
+      .then((response) => {
+        const TEAMS = response.data
+        dispatch(toggleTeamsSuccess(TEAMS))
+        dispatch(getTeams())
+        dispatch(getPreviousTeams())
+      })
+      .catch((error) => {
+        dispatch(toggleTeamsFailure(error.message))
       })
   }
 }

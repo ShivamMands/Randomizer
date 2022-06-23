@@ -127,6 +127,7 @@ export const addMember = (member) => {
         const MEMBERS = response.data
         // dispatch(alertAction('MEMBERS Sent ...', true, 'success'))
         dispatch(addMemberSuccess(MEMBERS))
+        dispatch(getMembers())
       })
       .catch((error) => {
         // dispatch(alertAction(`${error.message}`, true, 'error'))
@@ -147,6 +148,7 @@ export const updateMember = (member) => {
         const MEMBERS = response.data
         // dispatch(alertAction('MEMBERS Sent ...', true, 'success'))
         dispatch(updateMemberSuccess(MEMBERS))
+        dispatch(getMembers())
       })
       .catch((error) => {
         // dispatch(alertAction(`${error.message}`, true, 'error'))
@@ -168,6 +170,7 @@ export const deleteMember = (id) => {
         const MEMBERS = response.data
         // dispatch(alertAction('MEMBERS Sent ...', true, 'success'))
         dispatch(deleteMemberSuccess(MEMBERS))
+        dispatch(getMembers())
       })
       .catch((error) => {
         // dispatch(alertAction(`${error.message}`, true, 'error'))

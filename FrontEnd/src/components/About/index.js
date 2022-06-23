@@ -19,7 +19,7 @@ const About = () => {
 
   const useStyles = makeStyles({
     heading: {
-      margin: '2% 6% 3% 10%',
+      margin: '0% 6% 3% 10%',
     },
     button: {
       background: '#FBD401 !important',

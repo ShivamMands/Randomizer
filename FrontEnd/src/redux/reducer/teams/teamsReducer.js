@@ -14,6 +14,9 @@ import {
   CREATE_TEAMS_REQUEST,
   CREATE_TEAMS_SUCCESS,
   CREATE_TEAMS_FAILURE,
+  TOGGLE_TEAMS_REQUEST,
+  TOGGLE_TEAMS_SUCCESS,
+  TOGGLE_TEAMS_FAILURE,
 } from '../../actions/teams/teamsActionTypes'
 
 const initialState = {
@@ -84,7 +87,6 @@ const teamsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        scrumMaster: action.payload,
         error: '',
         fetched: true,
       }
@@ -128,8 +130,6 @@ const teamsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        // teamA: [],
-        // teamB: [],
         fetched: true,
         teamCreated: true,
       }
@@ -137,8 +137,28 @@ const teamsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        // teamA: [],
-        // teamB: [],
+        error: action.payload,
+        fetched: false,
+      }
+    case TOGGLE_TEAMS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case TOGGLE_TEAMS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        teamA: action.payload.teamA,
+        teamB: action.payload.teamB,
+        fetched: true,
+        teamCreated: true,
+      }
+    case TOGGLE_TEAMS_FAILURE:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
         fetched: false,
       }

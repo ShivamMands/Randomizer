@@ -4,12 +4,12 @@ import Stack from '@mui/material/Stack'
 import store from '../../redux/store/store'
 import {
   getMembers,
-  confetti,
   createTeams,
   getTeams,
   getPreviousTeams,
   wheelPicker,
   getScrumMaster,
+  toggleTeams,
 } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import Confettii from '../../shared/confetti'
@@ -20,14 +20,12 @@ function TotalList() {
   const [list, setList] = useState(members)
   const [totalMembers, setTotalMembers] = useState(members.length)
   const [presenting, setPresenting] = useState(true)
-  // const [scrumMaster, setScrumMaster] = useState({
-  //   name: '',
-  // })
 
   const showConfetti = useSelector((state) => state.confetti.show)
   const teamA = useSelector((store) => store.teams.teamA)
   const teamB = useSelector((store) => store.teams.teamB)
   const scrumMaster = useSelector((store) => store.teams.scrumMaster)
+  const membersFetched = useSelector((store) => store.members.fetched)
 
   useEffect(() => {
     dispatch(getMembers())
@@ -35,6 +33,13 @@ function TotalList() {
     dispatch(getPreviousTeams())
     dispatch(getScrumMaster())
   }, [])
+  useEffect(() => {
+    if (teamA && teamA.length > 0 && teamA[0].teamroles === 'Presenting') {
+      setPresenting(true)
+    } else {
+      setPresenting(false)
+    }
+  }, [teamA, teamB])
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -43,25 +48,19 @@ function TotalList() {
 
   const shuffleTeams = () => {
     dispatch(createTeams())
-    dispatch(confetti(true))
-    setTimeout(() => {
-      dispatch(confetti(false))
-    }, 8000)
+    // dispatch(confetti(true))
+    // setTimeout(() => {
+    //   dispatch(confetti(false))
+    // }, 8000)
   }
 
   const pickScrumMaster = () => {
     dispatch(wheelPicker(true))
-    let master = ''
-    if (presenting) {
-      master = teamB[Math.floor(Math.random() * teamB.length)]
-    } else {
-      master = teamA[Math.floor(Math.random() * teamA.length)]
-    }
-    // setScrumMaster(master)
   }
 
   const switchPresentingTeam = () => {
-    setPresenting(!presenting)
+    dispatch(toggleTeams())
+    // setPresenting(!presenting)
   }
 
   const inlineBlock = {
@@ -73,14 +72,14 @@ function TotalList() {
     padding: '1em',
     float: 'left',
   }
-  const id = '62ac371b61b31bc71a1cc41b'
   const btnStyle = {
     fontWeight: 400,
     fontSize: '15px',
     whiteSpace: 'nowrap',
   }
 
-  console.log('totalMembers: ', totalMembers)
+  console.log('presenting: ', presenting)
+
   return (
     <div className="team-divider">
       {showConfetti ? <Confettii /> : ''}

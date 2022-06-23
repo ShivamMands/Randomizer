@@ -42,12 +42,12 @@ export default function DataTable() {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'name', headerName: 'Name', width: width <= 1366 ? 200 : 300 },
-    { field: 'email', headerName: 'Email', width: width <= 1366 ? 200 : 300 },
+    { field: 'name', headerName: 'Name', width: width <= 1376 ? 250 : 200 },
+    { field: 'email', headerName: 'Email', width: width <= 1376 ? 320 : 300 },
     {
       field: 'favouriteTech',
       headerName: 'favouriteTech',
-      width: width <= 1366 ? 200 : 300,
+      width: width <= 1366 ? 220 : 200,
     },
 
     {
@@ -100,8 +100,8 @@ export default function DataTable() {
   return (
     <div
       style={{
-        height: 500,
-        width: '100%',
+        height: '428px',
+        width: '68em',
         backgroundColor: 'primary.dark',
         '&:hover': {
           backgroundColor: 'primary.main',
@@ -116,9 +116,9 @@ export default function DataTable() {
           getRowId={(members) => members._id}
           rows={members}
           columns={columns}
-          pageSize={7}
+          pageSize={6}
           pagination
-          rowsPerPageOptions={[7]}
+          // rowsPerPageOptions={[5, 10, 20]}
           onCellClick={(param, event) => {
             if (!event.ctrlKey) {
               event.defaultMuiPrevented = true
