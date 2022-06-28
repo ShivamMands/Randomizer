@@ -4,17 +4,34 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useRef } from 'react'
 import emailjs from '@emailjs/browser'
 import AnimatedLetters from '../AnimatedLetters'
+import { useDispatch, useSelector } from 'react-redux'
+
 import './index.scss'
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
+  const members = useSelector((store) => store.members.response)
+  const [totalMembers, setTotalMembers] = useState(members.length)
+  const [presenting, setPresenting] = useState(true)
   const form = useRef()
+
+  const teamA = useSelector((store) => store.teams.previousTeamA)
+  const teamB = useSelector((store) => store.teams.previousTeamB)
+  const scrumMaster = useSelector((store) => store.teams.previousScrumMaster)
 
   useEffect(() => {
     return setTimeout(() => {
       setLetterClass('text-animate-hover')
     }, 3000)
   }, [])
+
+  useEffect(() => {
+    if (teamA && teamA.length > 0 && teamA[0].teamroles === 'Presenting') {
+      setPresenting(true)
+    } else {
+      setPresenting(false)
+    }
+  }, [teamA, teamB])
 
   const sendEmail = (e) => {
     e.preventDefault()
@@ -37,82 +54,64 @@ const Contact = () => {
       )
   }
 
+  const inlineBlock = {
+    display: 'inline-block',
+    padding: '1em 4em 1em 4em',
+    whiteSpace: 'nowrap',
+  }
+
   return (
     <>
       <div className="container contact-page">
-        <div className="text-zone">
-          <h1>
-            <AnimatedLetters
-              letterClass={letterClass}
-              strArray={['C', 'o', 'n', 't', 'a', 'c', 't', ' ', 'm', 'e']}
-              idx={15}
-            />
+        <div className="text-zone-previous-teams">
+          <h1 style={{ textAlign: 'center' }} className="previous-page-heading">
+            Previous Teams
           </h1>
-          <p>
-            I am interested in freelance opportunities - especially ambitious or
-            large projects. However, if you have other request or question,
-            don't hesitate to contact me using below form either.
-          </p>
-          <div className="contact-form">
-            <form ref={form} onSubmit={sendEmail}>
-              <ul>
-                <li className="half">
-                  <input
-                    placeholder="Name"
-                    type="text"
-                    name="user_name"
-                    required
-                  />
-                </li>
-                <li className="half">
-                  <input
-                    placeholder="Email"
-                    type="email"
-                    name="user_email"
-                    required
-                  />
-                </li>
-                <li>
-                  <input
-                    placeholder="Subject"
-                    type="text"
-                    name="subject"
-                    required
-                  />
-                </li>
-                <li>
-                  <textarea
-                    placeholder="Message"
-                    name="message"
-                    required
-                  ></textarea>
-                </li>
-                <li>
-                  <input type="submit" className="flat-button" value="SEND" />
-                </li>
-              </ul>
-            </form>
+
+          <div style={{ display: 'flex' }} className="teams">
+            <div style={inlineBlock} className="teamA">
+              <h2>Presenting</h2>
+              {presenting ? (
+                <>
+                  <h3>Team A</h3>
+                  {teamA.map((member) => (
+                    <p key={member.id}>{member.name}</p>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <h3>Team B</h3>
+                  {teamB.map((member) => (
+                    <p key={member.id}>{member.name}</p>
+                  ))}
+                </>
+              )}
+            </div>
+
+            <div style={inlineBlock} className="teamB">
+              <h2>Questioner</h2>
+              {presenting ? (
+                <>
+                  <h3>Team B</h3>
+                  {teamB.map((member) => (
+                    <p key={member.id}>{member.name}</p>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <h3>Team A</h3>
+                  {teamA.map((member) => (
+                    <p key={member.id}>{member.name}</p>
+                  ))}
+                </>
+              )}
+            </div>
+
+            <div style={inlineBlock} className="scrumMaster">
+              <h2>Scrum Master</h2>
+              {scrumMaster ? <h3>{scrumMaster.name}</h3> : ''}
+            </div>
           </div>
-        </div>
-        <div className="info-map">
-          D 84,
-          <br />
-          Sec 2,
-          <br />
-          Noida <br />
-          <br />
-          <span>shivam.asija@mandsconsulting.com</span>
-        </div>
-        <div className="map-wrap">
-          <MapContainer
-            center={[28.584220132693606, 77.31882438465885]}
-            zoom={13}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Marker position={[28.584220132693606, 77.31882438465885]}>
-              <Popup>Shivam lives here, come over for a cup of coffee :)</Popup>
-            </Marker>
-          </MapContainer>
         </div>
       </div>
       <Loader type="pacman" />
@@ -121,3 +120,66 @@ const Contact = () => {
 }
 
 export default Contact
+
+// import React, { useEffect, useState } from 'react'
+// import './index.scss'
+// import Typography from '@mui/material/Typography'
+
+// function Contact() {
+//   const AllMembers = {
+//     display: 'inline-block',
+//     padding: '1em 4em 1em 4em',
+//     whiteSpace: 'nowrap',
+//     margin: '1% 1% 1% 7%',
+//   }
+//   const Presenting = {
+//     display: 'inline-block',
+//     padding: '1em 4em 1em 4em',
+//     whiteSpace: 'nowrap',
+//     margin: '1% 1% 1% 8%',
+//   }
+//   const Questioner = {
+//     display: 'inline-block',
+//     padding: '1em 4em 1em 4em',
+//     whiteSpace: 'nowrap',
+//     margin: '1% 1% 1% -4%',
+//   }
+//   const ScrumMaster = {
+//     display: 'inline-block',
+//     padding: '1em 4em 1em 4em',
+//     whiteSpace: 'nowrap',
+//     margin: '1% 1% 1% -4%',
+//   }
+//   const membersDiv = {
+//     padding: '1em !important',
+//     float: 'left !important',
+//     margin: '1% 1% 1% 19% !important',
+//   }
+//   const id = '62ac371b61b31bc71a1cc41b'
+//   const btnStyle = {
+//     fontWeight: 400,
+//     fontSize: '15px',
+//     whiteSpace: 'nowrap',
+//   }
+
+//   return (
+//     <>
+//       <div className="PreviousTeam">
+//         <h2>Previous Team</h2>
+//       </div>
+//       <div style={{ display: 'flex' }} className="members">
+//         <div style={{ display: 'flex' }} className="teams"></div>
+//         <div style={Presenting} className="teamA">
+//           <h2>Presenting</h2>
+//         </div>
+//         <div style={Questioner} className="teamB">
+//           <h2>Questioner</h2>
+//         </div>
+//         <div style={ScrumMaster} className="scrumMaster">
+//           <h2>Scrum Master</h2>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
+// export default Contact

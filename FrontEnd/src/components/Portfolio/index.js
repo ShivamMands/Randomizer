@@ -60,7 +60,6 @@ const Portfolio = () => {
             style={{ left: 50, color: '#98911B' }}
             onClick={() => dispatch(wheelPicker(false))}
             size="large"
-            // variant="contained"
           >
             <ArrowBackIosIcon />
           </Button>

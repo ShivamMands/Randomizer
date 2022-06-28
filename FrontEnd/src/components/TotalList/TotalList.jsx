@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import store from '../../redux/store/store'
 import {
   getMembers,
   createTeams,
@@ -13,11 +12,11 @@ import {
 } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import Confettii from '../../shared/confetti'
+import PomodoroTimer from '../../shared/pomodoreTimer'
 import './TotalList.css'
 
 function TotalList() {
   const members = useSelector((store) => store.members.response)
-  const [list, setList] = useState(members)
   const [totalMembers, setTotalMembers] = useState(members.length)
   const [presenting, setPresenting] = useState(true)
 
@@ -25,7 +24,6 @@ function TotalList() {
   const teamA = useSelector((store) => store.teams.teamA)
   const teamB = useSelector((store) => store.teams.teamB)
   const scrumMaster = useSelector((store) => store.teams.scrumMaster)
-  const membersFetched = useSelector((store) => store.members.fetched)
 
   useEffect(() => {
     dispatch(getMembers())
@@ -33,6 +31,7 @@ function TotalList() {
     dispatch(getPreviousTeams())
     dispatch(getScrumMaster())
   }, [])
+
   useEffect(() => {
     if (teamA && teamA.length > 0 && teamA[0].teamroles === 'Presenting') {
       setPresenting(true)
@@ -48,10 +47,6 @@ function TotalList() {
 
   const shuffleTeams = () => {
     dispatch(createTeams())
-    // dispatch(confetti(true))
-    // setTimeout(() => {
-    //   dispatch(confetti(false))
-    // }, 8000)
   }
 
   const pickScrumMaster = () => {
@@ -60,7 +55,6 @@ function TotalList() {
 
   const switchPresentingTeam = () => {
     dispatch(toggleTeams())
-    // setPresenting(!presenting)
   }
 
   const inlineBlock = {
@@ -78,7 +72,13 @@ function TotalList() {
     whiteSpace: 'nowrap',
   }
 
-  console.log('presenting: ', presenting)
+  const handleClick = (event) => {
+    if (event.target.style.textDecoration) {
+      event.target.style.removeProperty('text-decoration')
+    } else {
+      event.target.style.setProperty('text-decoration', 'line-through')
+    }
+  }
 
   return (
     <div className="team-divider">
@@ -141,14 +141,18 @@ function TotalList() {
             <>
               <h3>Team B</h3>
               {teamB.map((member) => (
-                <p key={member.id}>{member.name}</p>
+                <p key={member.id} onClick={handleClick}>
+                  {member.name}
+                </p>
               ))}
             </>
           ) : (
             <>
               <h3>Team A</h3>
               {teamA.map((member) => (
-                <p key={member.id}>{member.name}</p>
+                <p key={member.id} onClick={handleClick}>
+                  {member.name}
+                </p>
               ))}
             </>
           )}
@@ -157,6 +161,7 @@ function TotalList() {
         <div style={inlineBlock} className="scrumMaster">
           <h2>Scrum Master</h2>
           {scrumMaster ? <h3>{scrumMaster.name}</h3> : ''}
+          <PomodoroTimer />
         </div>
       </div>
     </div>

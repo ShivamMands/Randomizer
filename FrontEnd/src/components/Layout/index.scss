@@ -79,6 +79,43 @@
       }
     }
 
+    h1.previous-page-heading {
+      font-size: 53px;
+      font-family: 'Coolvetica';
+      color: #ffd700;
+      font-weight: 400;
+      margin-top: 0;
+      position: relative;
+      margin-bottom: 40px;
+
+      &:before {
+        content: '<h1>';
+        font-family: 'La Belle Aurore', cursive;
+        color: #ffd700;
+        font-size: 18px;
+        position: absolute;
+        margin-top: -10px;
+        opacity: 0.6;
+        line-height: 18px;
+        left: auto !important
+      }
+
+      &:after {
+        content: '<h1/>';
+        font-family: 'La Belle Aurore', cursive;
+        color: #ffd700;
+        font-size: 18px;
+        line-height: 18px;
+        position: absolute;
+        bottom: -20px;
+        margin-left: 20px;
+        opacity: 0.6;
+        left: auto !important
+      }
+    }    
+
+    
+
     p {
       font-size: 13px;
       color: #fff;
@@ -117,11 +154,11 @@
     max-height: 90%;
   }
 
-  .text-animate-hover {
-    &:hover {
-      color: #fff;
-    }
-  }
+  // .text-animate-hover {
+  //   &:hover {
+  //     color: #fff;
+  //   }
+  // }
 }
 
 
