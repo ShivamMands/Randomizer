@@ -5,6 +5,8 @@ import PauseButton from './PauseButton'
 import SettingsButton from './SettingsButton'
 import { useContext, useState, useEffect, useRef } from 'react'
 import SettingsContext from './SettingsContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { timer } from '../../redux'
 
 const red = '#DFC208'
 const green = '#4aec8c'
@@ -16,9 +18,29 @@ function Timer() {
   const [mode, setMode] = useState('work') // work/break/null
   const [secondsLeft, setSecondsLeft] = useState(0)
 
+  const playTimer = useSelector((store) => store.timer.play)
+
   const secondsLeftRef = useRef(secondsLeft)
   const isPausedRef = useRef(isPaused)
   const modeRef = useRef(mode)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    // if (playTimer) {
+    //   secondsLeftRef.current = settingsInfo.workMinutes * 60
+    //   setSecondsLeft(secondsLeftRef.current)
+    //   const nextMode = modeRef.current === 'work' ? 'break' : 'work'
+    //   const nextSeconds =
+    //     (nextMode === 'work'
+    //       ? settingsInfo.workMinutes
+    //       : settingsInfo.breakMinutes) * 60
+    //   setMode(nextMode)
+    //   modeRef.current = nextMode
+    //   setSecondsLeft(nextSeconds)
+    //   secondsLeftRef.current = nextSeconds
+    // }
+  }, [playTimer])
 
   function tick() {
     secondsLeftRef.current--
@@ -33,6 +55,12 @@ function Timer() {
           ? settingsInfo.workMinutes
           : settingsInfo.breakMinutes) * 60
 
+      if (nextSeconds === 0) {
+        setIsPaused(true)
+        secondsLeftRef.current = settingsInfo.workMinutes * 60
+        setSecondsLeft(secondsLeftRef.current)
+        isPausedRef.current = true
+      }
       setMode(nextMode)
       modeRef.current = nextMode
 

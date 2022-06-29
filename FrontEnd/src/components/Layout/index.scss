@@ -7,7 +7,7 @@
 
 .top-tags {
   bottom: auto;
-  top: 35px;
+  top: 2%;
 }
 
 .tags {
@@ -15,7 +15,7 @@
   opacity: 0.6;
   position: absolute;
   bottom: 0;
-  left: 120px;
+  left: 2%;
   font-size: 18px;
   font-family: 'La Belle Aurore', cursive;
 }
@@ -25,7 +25,7 @@
 }
 
 .container {
-  width: 100%;
+  width: 90%;
   will-change: contents;
   height: 90%;
   min-height: 566px;

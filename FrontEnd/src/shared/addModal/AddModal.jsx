@@ -3,19 +3,26 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { TextField } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './AddModal.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addMember } from '../../redux/actions/members/membersActions'
 import { makeStyles } from '@material-ui/styles'
 import CloseIcon from '@mui/icons-material/Close'
+import AnimatedLetters from '../../components/AnimatedLetters'
 
 export default function AddModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [formData, setFormData] = useState({})
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
 
   const dispatch = useDispatch()
 
@@ -64,6 +71,7 @@ export default function AddModal() {
     border: '2px solid #FED600',
   }
   const button = {
+    marginTop: '5% !important',
     background: '#ffd700',
     padding: '4px 10px',
     fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
@@ -98,12 +106,32 @@ export default function AddModal() {
   return (
     <div>
       <Button
+        sx={{ marginTop: '3%' }}
         className={classes.button}
         onClick={handleOpen}
         variant="contained"
         size="large"
       >
-        Create Member
+        <AnimatedLetters
+          letterClass={letterClass}
+          strArray={[
+            'C',
+            'r',
+            'e',
+            'a',
+            't',
+            'e',
+            ' ',
+            'M',
+            'e',
+            'm',
+            'b',
+            'e',
+            'r',
+          ]}
+          idx={15}
+        />
+        {/* Create Member */}
       </Button>
       <Modal
         sx={{ backgroud: '#0C0C0C' }}

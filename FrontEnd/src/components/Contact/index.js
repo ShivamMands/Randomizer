@@ -70,7 +70,13 @@ const Contact = () => {
 
           <div style={{ display: 'flex' }} className="teams">
             <div style={inlineBlock} className="teamA">
-              <h2>Presenting</h2>
+              <h2>
+                <AnimatedLetters
+                  letterClass={letterClass}
+                  strArray={['P', 'r', 'e', 's', 'e', 'n', 't', 'i', 'n', 'g']}
+                  idx={15}
+                />
+              </h2>
               {presenting ? (
                 <>
                   <h3>Team A</h3>
@@ -89,7 +95,13 @@ const Contact = () => {
             </div>
 
             <div style={inlineBlock} className="teamB">
-              <h2>Questioner</h2>
+              <h2>
+                <AnimatedLetters
+                  letterClass={letterClass}
+                  strArray={['Q', 'u', 'e', 's', 't', 'i', 'o', 'n', 'e', 'r']}
+                  idx={15}
+                />
+              </h2>
               {presenting ? (
                 <>
                   <h3>Team B</h3>
@@ -108,7 +120,26 @@ const Contact = () => {
             </div>
 
             <div style={inlineBlock} className="scrumMaster">
-              <h2>Scrum Master</h2>
+              <h2>
+                <AnimatedLetters
+                  letterClass={letterClass}
+                  strArray={[
+                    'S',
+                    'c',
+                    'r',
+                    'u',
+                    'm',
+                    ' ',
+                    'M',
+                    'a',
+                    's',
+                    't',
+                    'e',
+                    'r',
+                  ]}
+                  idx={15}
+                />
+              </h2>
               {scrumMaster ? <h3>{scrumMaster.name}</h3> : ''}
             </div>
           </div>

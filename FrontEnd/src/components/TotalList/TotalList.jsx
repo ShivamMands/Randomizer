@@ -9,7 +9,9 @@ import {
   wheelPicker,
   getScrumMaster,
   toggleTeams,
+  timer,
 } from '../../redux'
+import AnimatedLetters from '../AnimatedLetters'
 import { useDispatch, useSelector } from 'react-redux'
 import Confettii from '../../shared/confetti'
 import PomodoroTimer from '../../shared/pomodoreTimer'
@@ -24,6 +26,15 @@ function TotalList() {
   const teamA = useSelector((store) => store.teams.teamA)
   const teamB = useSelector((store) => store.teams.teamB)
   const scrumMaster = useSelector((store) => store.teams.scrumMaster)
+  const showTimer = useSelector((store) => store.timer.show)
+
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
 
   useEffect(() => {
     dispatch(getMembers())
@@ -72,7 +83,8 @@ function TotalList() {
     whiteSpace: 'nowrap',
   }
 
-  const handleClick = (event) => {
+  const handleClick = (event, member) => {
+    dispatch(timer(true, member.name))
     if (event.target.style.textDecoration) {
       event.target.style.removeProperty('text-decoration')
     } else {
@@ -110,58 +122,100 @@ function TotalList() {
         </Button>
       </Stack>
       <div style={membersDiv} className="members">
-        <h2>All Members</h2>
+        {/* <h2>All Members</h2> */}
+        <h2>
+          <AnimatedLetters
+            letterClass={letterClass}
+            strArray={['A', 'l', 'l', ' ', 'M', 'e', 'm', 'b', 'e', 'r', 's']}
+            idx={15}
+          />
+        </h2>
         <h3>Total Members: {totalMembers}</h3>
         {members &&
           members.map((member) => <p key={member.id}>{member.name}</p>)}
       </div>
       <div style={{ display: 'flex' }} className="teams">
         <div style={inlineBlock} className="teamA">
-          <h2>Presenting</h2>
+          {/* <h2>Presenting</h2> */}
+          <h2>
+            <AnimatedLetters
+              letterClass={letterClass}
+              strArray={['P', 'r', 'e', 's', 'e', 'n', 't', 'i', 'n', 'g']}
+              idx={15}
+            />
+          </h2>
           {presenting ? (
             <>
               <h3>Team A</h3>
               {teamA.map((member) => (
-                <p key={member.id}>{member.name}</p>
+                <p key={member.id} onClick={(e) => handleClick(e, member)}>
+                  {member.name}
+                </p>
               ))}
             </>
           ) : (
             <>
               <h3>Team B</h3>
               {teamB.map((member) => (
-                <p key={member.id}>{member.name}</p>
+                <p key={member.id} onClick={(e) => handleClick(e, member)}>
+                  {member.name}
+                </p>
               ))}
             </>
           )}
         </div>
 
         <div style={inlineBlock} className="teamB">
-          <h2>Questioner</h2>
+          {/* <h2>Questioner</h2> */}
+          <h2>
+            <AnimatedLetters
+              letterClass={letterClass}
+              strArray={['Q', 'u', 'e', 's', 't', 'i', 'o', 'n', 'e', 'r']}
+              idx={15}
+            />
+          </h2>
           {presenting ? (
             <>
               <h3>Team B</h3>
               {teamB.map((member) => (
-                <p key={member.id} onClick={handleClick}>
-                  {member.name}
-                </p>
+                <p key={member.id}>{member.name}</p>
               ))}
             </>
           ) : (
             <>
               <h3>Team A</h3>
               {teamA.map((member) => (
-                <p key={member.id} onClick={handleClick}>
-                  {member.name}
-                </p>
+                <p key={member.id}>{member.name}</p>
               ))}
             </>
           )}
         </div>
 
         <div style={inlineBlock} className="scrumMaster">
-          <h2>Scrum Master</h2>
+          {/* <h2>Scrum Master</h2> */}
+          <h2>
+            <AnimatedLetters
+              letterClass={letterClass}
+              strArray={[
+                'S',
+                'c',
+                'r',
+                'u',
+                'm',
+                ' ',
+                'M',
+                'a',
+                's',
+                't',
+                'e',
+                'r',
+              ]}
+              idx={15}
+            />
+          </h2>
           {scrumMaster ? <h3>{scrumMaster.name}</h3> : ''}
-          <PomodoroTimer />
+
+          {showTimer ? <PomodoroTimer /> : ''}
         </div>
       </div>
     </div>

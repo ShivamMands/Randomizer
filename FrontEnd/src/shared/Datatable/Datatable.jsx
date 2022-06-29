@@ -43,7 +43,7 @@ export default function DataTable() {
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'name', headerName: 'Name', width: width <= 1376 ? 250 : 200 },
-    { field: 'email', headerName: 'Email', width: width <= 1376 ? 320 : 300 },
+    { field: 'email', headerName: 'Email', width: width <= 1376 ? 370 : 350 },
     {
       field: 'favouriteTech',
       headerName: 'favouriteTech',
@@ -55,7 +55,7 @@ export default function DataTable() {
       headerName: 'Action',
       headerClassName: 'statements-header',
       description: 'This column has a value getter and is not sortable.',
-      width: width <= 1366 ? 200 : 300,
+      width: width <= 1366 ? 150 : 250,
       disableColumnMenu: true,
       renderCell: (params) => {
         // if (deleteModal) {
